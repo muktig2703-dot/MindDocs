@@ -1,38 +1,57 @@
 from pathlib import Path
+
 from pypdf import PdfReader
+from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
+
 def save_pdf(file):
     file_path = UPLOAD_DIR / file.filename
-
     with open(file_path, "wb") as f:
         f.write(file.file.read())
 
     return file_path
 
+
 def extract_text(file_path):
     reader = PdfReader(file_path)
 
-    text = ""
+    documents = []
 
-    for page in reader.pages:
-        page_text = page.extract_text()
+    total_text = ""
 
-        if page_text:
-            text += page_text + "\n"
+    for page_number, page in enumerate(reader.pages, start=1):
+        text = page.extract_text()
+
+        if not text:
+            continue
+
+        total_text += text + "\n"
+
+        documents.append(
+            Document(
+                page_content=text,
+                metadata={
+                    "source": file_path.name,
+                    "page": page_number
+                }
+            )
+        )
 
     return {
         "pages": len(reader.pages),
-        "text": text
+        "text": total_text,
+        "documents": documents
     }
 
-def split_text(text):
+
+def split_text(documents):
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=200
     )
 
-    return splitter.create_documents([text])
+    return splitter.split_documents(documents)

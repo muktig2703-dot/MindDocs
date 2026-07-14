@@ -1,6 +1,10 @@
+from pathlib import Path
 import os
+
 from dotenv import load_dotenv
 
-load_dotenv()
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+load_dotenv(BASE_DIR / ".env")
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")

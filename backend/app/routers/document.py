@@ -22,7 +22,7 @@ async def upload_pdf(file: UploadFile = File(...)):
     file_path = save_pdf(file)
 
     pdf_data = extract_text(file_path)
-    documents = split_text(pdf_data["text"])
+    documents = split_text(pdf_data["documents"])
 
     embedding_model = get_embedding_model()
 

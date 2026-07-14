@@ -35,3 +35,6 @@ def load_faiss(embeddings):
         embeddings,
         allow_dangerous_deserialization=True
     )
+
+def search_documents(db, question, k=4):
+    return db.similarity_search(question, k=k)
