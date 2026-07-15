@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
 
+import Navbar from "../components/navigation/Navbar";
+
 function PublicLayout() {
   return (
     <div
@@ -9,6 +11,8 @@ function PublicLayout() {
         color: "var(--text-primary)",
       }}
     >
+      <Navbar />
+
       <Outlet />
     </div>
   );

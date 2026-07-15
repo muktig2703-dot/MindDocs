@@ -14,6 +14,13 @@
   --text-primary: #ffffff;
   --text-secondary: #d1d5db;
   --text-muted: #6b7280;
+
+  --navbar-bg: rgba(17,24,39,.72);
+  --navbar-border: rgba(255,255,255,.08);
+
+  --glass-bg: rgba(255,255,255,.05);
+
+  --hover-bg: rgba(255,255,255,.08);
 }
 
 :root.light {
@@ -27,8 +34,15 @@
   --secondary: #0891b2;
 
   --text-primary: #111827;
-  --text-secondary: #374151;
+  --text-secondary: #4b5563;
   --text-muted: #6b7280;
+
+  --navbar-bg: rgba(255,255,255,.72);
+  --navbar-border: rgba(0,0,0,.08);
+
+  --glass-bg: rgba(255,255,255,.70);
+
+  --hover-bg: rgba(0,0,0,.05);
 }
 
 html {
@@ -64,4 +78,39 @@ a {
 img {
   max-width: 100%;
   display: block;
+}
+
+html,
+body,
+button,
+a,
+input,
+textarea,
+div,
+section,
+nav,
+header,
+main {
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.35);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.6);
 }
