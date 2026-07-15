@@ -1,6 +1,8 @@
 function Button({
   children,
   variant = "primary",
+  type = "button",
+  disabled = false,
   className = "",
   ...props
 }) {
@@ -17,7 +19,18 @@ function Button({
 
   return (
     <button
-  className={`${base} ${variants[variant]} ${className}`}
+  type={type}
+  disabled={disabled}
+  className={`
+    ${base}
+    ${variants[variant]}
+    ${
+      disabled
+        ? "cursor-not-allowed opacity-60"
+        : ""
+    }
+    ${className}
+  `}
   style={
     variant === "secondary"
       ? {
