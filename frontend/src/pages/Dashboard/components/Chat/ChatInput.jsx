@@ -1,5 +1,73 @@
+import {
+  Paperclip,
+  Mic,
+  SendHorizonal,
+} from "lucide-react";
+
 function ChatInput() {
-  return null;
+  return (
+    <div
+      className="
+        border-t
+        p-5
+      "
+      style={{
+        borderColor: "var(--border)",
+      }}
+    >
+      <div
+        className="
+          flex
+          items-center
+          gap-3
+          rounded-2xl
+          border
+          px-4
+          py-3
+        "
+        style={{
+          background: "var(--card)",
+          borderColor: "var(--border)",
+        }}
+      >
+        <button>
+          <Paperclip
+            size={20}
+            color="var(--text-secondary)"
+          />
+        </button>
+
+        <input
+          placeholder="Ask anything about your document..."
+          className="flex-1 bg-transparent outline-none"
+          style={{
+            color: "var(--text-primary)",
+          }}
+        />
+
+        <button>
+          <Mic
+            size={20}
+            color="var(--text-secondary)"
+          />
+        </button>
+
+        <button
+          className="
+            rounded-xl
+            p-2
+          "
+          style={{
+            background: "var(--primary)",
+            color: "#fff",
+          }}
+        >
+          <SendHorizonal size={18} />
+        </button>
+
+      </div>
+    </div>
+  );
 }
 
 export default ChatInput;

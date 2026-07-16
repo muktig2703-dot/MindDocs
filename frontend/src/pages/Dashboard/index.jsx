@@ -4,7 +4,7 @@ import StatsGrid from "./components/Stats/StatsGrid";
 import SearchBar from "./components/SearchBar/SearchBar";
 import UploadCard from "./components/UploadCard/UploadCard";
 import RecentDocuments from "./components/RecentDocuments/RecentDocuments";
-import Chat from "./components/Chat/Chat";
+import ChatPanel from "./components/Chat/ChatPanel";
 function Dashboard() {
   return (
     <div
@@ -26,14 +26,15 @@ function Dashboard() {
         <StatsGrid />
 
         <SearchBar />
+        <div>
 
         <UploadCard />
 
         <RecentDocuments />
+        </div>
+        </main>
+        <ChatPanel />
 
-      </main>
-
-      <Chat />
     </div>
   );
 }
