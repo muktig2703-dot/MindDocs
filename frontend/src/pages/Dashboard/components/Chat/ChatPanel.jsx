@@ -8,7 +8,8 @@ function ChatPanel() {
     <section
       className="
         flex
-        h-[850px]
+        h-[650px]
+        lg:h-[850px]
         flex-col
         overflow-hidden
         rounded-3xl

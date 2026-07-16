@@ -1,7 +1,45 @@
+import { useRef, useState } from "react";
 import { UploadCloud, FileText } from "lucide-react";
 import { motion } from "framer-motion";
-
+import toast from "react-hot-toast";
+import { uploadDocument } from "../../../../services/documentService";
 function UploadCard() {
+  const fileInputRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const handleFileUpload = async (event) => {
+  const file = event.target.files?.[0];
+
+  if (!file) return;
+
+  try {
+    setUploading(true);
+    setProgress(20);
+
+    const response = await uploadDocument(file);
+
+    setProgress(100);
+
+    toast.success(response.message);
+
+    console.log(response);
+
+  } catch (error) {
+    console.error(error);
+
+    toast.error(
+      error.response?.data?.detail ||
+      "Failed to upload document."
+    );
+
+  } finally {
+    setUploading(false);
+
+    setTimeout(() => {
+      setProgress(0);
+    }, 800);
+  }
+};
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -50,8 +88,10 @@ function UploadCard() {
             rounded-3xl
             border-2
             border-dashed
-            px-8
-            py-16
+            px-5
+            sm:px-8
+            py-12
+            sm:py-16
             text-center
             transition-all
             duration-300
@@ -65,8 +105,10 @@ function UploadCard() {
             className="
               mx-auto
               flex
-              h-20
-              w-20
+              h-16
+              w-16
+              sm:h-20
+              sm:w-20
               items-center
               justify-center
               rounded-full
@@ -100,25 +142,36 @@ function UploadCard() {
           >
             or browse files from your computer
           </p>
+          <input
+  type="file"
+  accept=".pdf"
+  ref={fileInputRef}
+  hidden
+  onChange={handleFileUpload}
+/>
 
           <button
-            className="
-              mt-8
-              rounded-xl
-              px-6
-              py-3
-              font-medium
-              transition-all
-              duration-300
-              hover:scale-105
-            "
-            style={{
-              background: "var(--primary)",
-              color: "#fff",
-            }}
-          >
-            Browse Files
-          </button>
+  onClick={() => fileInputRef.current.click()}
+  disabled={uploading}
+  className="
+    mt-8
+    rounded-xl
+    px-6
+    py-3
+    font-medium
+    transition-all
+    duration-300
+    hover:scale-105
+    disabled:opacity-70
+    disabled:cursor-not-allowed
+  "
+  style={{
+    background: "var(--primary)",
+    color: "#fff",
+  }}
+>
+  {uploading ? "Uploading..." : "Browse Files"}
+</button>
 
           <div
             className="
@@ -157,7 +210,7 @@ function UploadCard() {
                 color: "var(--primary)",
               }}
             >
-              0%
+              {progress}%
             </span>
 
           </div>
@@ -169,10 +222,11 @@ function UploadCard() {
             }}
           >
             <div
-              className="h-full w-0 rounded-full"
-              style={{
-                background: "var(--primary)",
-              }}
+              className="h-full rounded-full transition-all duration-500"
+style={{
+  width: `${progress}%`,
+  background: "var(--primary)",
+}}
             />
           </div>
 

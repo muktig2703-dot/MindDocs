@@ -7,7 +7,7 @@ function SuggestedPrompts() {
   ];
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap overflow-x-auto pb-2 gap-3">
       {prompts.map((prompt) => (
         <button
           key={prompt}

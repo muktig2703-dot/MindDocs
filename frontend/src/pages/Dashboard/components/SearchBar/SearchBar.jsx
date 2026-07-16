@@ -53,6 +53,7 @@ function SearchBar() {
             type="text"
             placeholder="Search uploaded documents..."
             className="
+              max-w-xl
               w-full
               bg-transparent
               outline-none

@@ -11,7 +11,9 @@ function ChatMessage({
       }`}
     >
       <div
-        className="max-w-[75%] rounded-3xl px-5 py-4"
+        className="max-w-[92%]
+sm:max-w-[80%]
+lg:max-w-[75%] rounded-3xl px-5 py-4"
         style={{
           background: user
             ? "var(--primary)"

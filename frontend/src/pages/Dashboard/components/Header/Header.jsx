@@ -1,8 +1,13 @@
 import { Bell, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
-
+import { Menu } from "lucide-react";
 function Header() {
   const hour = new Date().getHours();
+  <button
+className="lg:hidden"
+>
+<Menu />
+</button>
 
   const greeting =
     hour < 12
@@ -17,11 +22,14 @@ function Header() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
       className="
-        mb-10
-        flex
-        items-center
-        justify-between
-      "
+  mb-10
+  flex
+  flex-col
+  gap-6
+  lg:flex-row
+  lg:items-center
+  lg:justify-between
+"
     >
       {/* Left */}
 

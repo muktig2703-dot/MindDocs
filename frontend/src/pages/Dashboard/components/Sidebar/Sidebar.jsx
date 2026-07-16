@@ -15,25 +15,31 @@ function Sidebar() {
   return (
     <aside
       className="
-        hidden
-        lg:flex
-        h-screen
-        sticky
+        fixed
+        left-0
         top-0
+        z-40
+        flex
+        h-screen
         w-[280px]
         flex-col
-        border-r
-        px-5
-        py-6
+        overflow-x-hidden
+        overflow-y-auto
+        p-6
+        -translate-x-full
+        lg:translate-x-0
+        transition-transform
+        duration-300
+        scrollbar-thin
       "
       style={{
         background: "var(--surface)",
-        borderColor: "var(--border)",
+        borderRight: "1px solid var(--border)",
       }}
     >
       {/* Logo */}
 
-      <div>
+      <div className="flex-shrink-0">
 
         <h1
           className="text-3xl font-bold"
@@ -98,9 +104,9 @@ function Sidebar() {
 
       </nav>
 
-      {/* Bottom Section */}
+      {/* Bottom */}
 
-      <div className="mt-auto space-y-5">
+      <div className="mt-auto pt-8 space-y-5">
 
         <StorageCard />
 

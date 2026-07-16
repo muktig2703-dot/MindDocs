@@ -1,7 +1,7 @@
 import {
   Paperclip,
   Mic,
-  SendHorizonal,
+  SendHorizontal,
 } from "lucide-react";
 
 function ChatInput() {
@@ -18,8 +18,11 @@ function ChatInput() {
       <div
         className="
           flex
+          flex-col
           items-center
           gap-3
+          sm:flex-row
+          sm:items-center
           rounded-2xl
           border
           px-4
@@ -62,7 +65,7 @@ function ChatInput() {
             color: "#fff",
           }}
         >
-          <SendHorizonal size={18} />
+          <SendHorizontal size={18} />
         </button>
 
       </div>
