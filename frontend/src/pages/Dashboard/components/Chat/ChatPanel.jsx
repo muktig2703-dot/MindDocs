@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChatHeader from "./ChatHeader";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import SuggestedPrompts from "./SuggestedPrompts";
+import ChatTyping from "./ChatTyping";
 import { askQuestion } from "../../../../services/chatService";
 import toast from "react-hot-toast";
+
 function ChatPanel() {
   const [messages, setMessages] = useState([
   {
@@ -39,6 +41,7 @@ const sendMessage = async (question) => {
       {
         role: "assistant",
         text: response.answer,
+sources: response.sources,
       },
     ]);
 
@@ -51,6 +54,12 @@ const sendMessage = async (question) => {
     setLoading(false);
   }
 };
+const bottomRef = useRef(null);
+useEffect(() => {
+  bottomRef.current?.scrollIntoView({
+    behavior: "smooth",
+  });
+}, [messages, loading]);
   return (
     <section
       className="
@@ -79,19 +88,22 @@ const sendMessage = async (question) => {
       >
         {messages.map((message, index) => (
   <ChatMessage
-    key={index}
-    role={message.role}
-    text={message.text}
-  />
+  key={index}
+  role={message.role}
+  text={message.text}
+  sources={message.sources}
+/>
 ))}
 {loading && (
-  <ChatMessage
-    role="assistant"
-    text="Thinking..."
+  <ChatTyping />
+)}
+{messages.length <= 1 && !loading && (
+  <SuggestedPrompts
+    onPromptClick={sendMessage}
   />
 )}
 
-        <SuggestedPrompts />
+<div ref={bottomRef} />
       </div>
 
       <ChatInput

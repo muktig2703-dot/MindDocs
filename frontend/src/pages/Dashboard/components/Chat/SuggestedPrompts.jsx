@@ -1,4 +1,6 @@
-function SuggestedPrompts() {
+function SuggestedPrompts({
+  onPromptClick,
+}) {
   const prompts = [
     "Summarize this PDF",
     "Explain chapter 5",
@@ -10,6 +12,7 @@ function SuggestedPrompts() {
     <div className="flex flex-wrap overflow-x-auto pb-2 gap-3">
       {prompts.map((prompt) => (
         <button
+  onClick={() => onPromptClick(prompt)}
           key={prompt}
           className="
             rounded-full
