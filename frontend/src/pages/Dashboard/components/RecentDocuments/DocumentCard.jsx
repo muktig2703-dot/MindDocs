@@ -7,7 +7,7 @@ import {
 
 import { motion } from "framer-motion";
 
-function DocumentCard() {
+function DocumentCard({ document }) {
   return (
     <motion.div
       whileHover={{
@@ -74,7 +74,7 @@ function DocumentCard() {
           color: "var(--text-primary)",
         }}
       >
-        AI Research Paper.pdf
+        {document.filename}
       </h3>
 
       {/* Meta */}
@@ -96,7 +96,7 @@ function DocumentCard() {
               color: "var(--text-secondary)",
             }}
           >
-            Uploaded Today
+            {document.uploadedAt.toLocaleString()}
           </span>
 
         </div>
@@ -110,7 +110,7 @@ function DocumentCard() {
               color: "var(--text-secondary)",
             }}
           >
-            42 Pages • 3.6 MB
+            {document.pages} Pages • {document.characters} Characters
           </span>
 
         </div>

@@ -1,9 +1,56 @@
+import { useState } from "react";
 import ChatHeader from "./ChatHeader";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import SuggestedPrompts from "./SuggestedPrompts";
-
+import { askQuestion } from "../../../../services/chatService";
+import toast from "react-hot-toast";
 function ChatPanel() {
+  const [messages, setMessages] = useState([
+  {
+    role: "assistant",
+    text: `Hello!
+
+Upload a document and ask me anything.
+
+I'll answer using only the contents of your uploaded PDFs.`,
+  },
+]);
+
+const [loading, setLoading] = useState(false);
+
+const sendMessage = async (question) => {
+  if (!question.trim()) return;
+
+  const userMessage = {
+    role: "user",
+    text: question,
+  };
+
+  setMessages((prev) => [...prev, userMessage]);
+
+  setLoading(true);
+
+  try {
+    const response = await askQuestion(question);
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "assistant",
+        text: response.answer,
+      },
+    ]);
+
+  } catch (error) {
+    toast.error(
+      error.response?.data?.detail ||
+      "Unable to get an answer."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <section
       className="
@@ -30,29 +77,27 @@ function ChatPanel() {
           p-6
         "
       >
-        <ChatMessage
-          role="assistant"
-          text={`Hello! 👋
-
-Upload a document and ask me anything.
-
-I'll answer using only the contents of your uploaded PDFs.`}
-        />
-
-        <ChatMessage
-          role="user"
-          text="Summarize this document."
-        />
-
-        <ChatMessage
-          role="assistant"
-          text={`This paper introduces Retrieval-Augmented Generation (RAG), a technique that combines semantic search with large language models to provide grounded and accurate answers from external documents.`}
-        />
+        {messages.map((message, index) => (
+  <ChatMessage
+    key={index}
+    role={message.role}
+    text={message.text}
+  />
+))}
+{loading && (
+  <ChatMessage
+    role="assistant"
+    text="Thinking..."
+  />
+)}
 
         <SuggestedPrompts />
       </div>
 
-      <ChatInput />
+      <ChatInput
+  onSend={sendMessage}
+  loading={loading}
+/>
     </section>
   );
 }

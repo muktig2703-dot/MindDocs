@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
 import StatsGrid from "./components/Stats/StatsGrid";
@@ -6,6 +7,7 @@ import UploadCard from "./components/UploadCard/UploadCard";
 import RecentDocuments from "./components/RecentDocuments/RecentDocuments";
 import ChatPanel from "./components/Chat/ChatPanel";
 function Dashboard() {
+  const [documents, setDocuments] = useState([]);
   return (
     <div
       className="
@@ -39,9 +41,15 @@ function Dashboard() {
     {/* Left Workspace */}
 
     <div>
-      <UploadCard />
+      <UploadCard
+  onUploadSuccess={(document) =>
+    setDocuments((prev) => [document, ...prev])
+  }
+/>
 
-      <RecentDocuments />
+      <RecentDocuments
+  documents={documents}
+/>
     </div>
 
     {/* Right Chat */}

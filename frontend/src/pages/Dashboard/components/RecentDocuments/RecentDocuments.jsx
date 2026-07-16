@@ -1,6 +1,6 @@
+import { FileText } from "lucide-react";
 import DocumentCard from "./DocumentCard";
-
-function RecentDocuments() {
+function RecentDocuments({ documents }) {
   return (
     <section className="mt-10">
 
@@ -37,9 +37,54 @@ function RecentDocuments() {
         "
       >
 
-        <DocumentCard />
-        <DocumentCard />
-        <DocumentCard />
+        {documents.length === 0 ? (
+  <div
+    className="
+      col-span-full
+      rounded-3xl
+      border
+      p-12
+      text-center
+    "
+    style={{
+      background: "var(--card)",
+      borderColor: "var(--border)",
+    }}
+  >
+    <FileText
+      size={42}
+      className="mx-auto mb-5"
+      style={{
+        color: "var(--primary)",
+      }}
+    />
+
+    <h3
+      className="text-xl font-semibold"
+      style={{
+        color: "var(--text-primary)",
+      }}
+    >
+      No Documents Uploaded Yet
+    </h3>
+
+    <p
+      className="mt-3"
+      style={{
+        color: "var(--text-secondary)",
+      }}
+    >
+      Upload your first PDF to begin chatting with AI.
+    </p>
+  </div>
+) : (
+  documents.map((document) => (
+    <DocumentCard
+      key={document.id}
+      document={document}
+    />
+  ))
+)}
 
       </div>
 
