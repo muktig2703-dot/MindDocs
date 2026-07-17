@@ -6,12 +6,13 @@ import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "./context/ThemeContext";
 import App from "./App";
 import "./styles/globals.css";
-
+import { DocumentProvider } from "./context/DocumentContext";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <DocumentProvider>
   <BrowserRouter>
     <ThemeProvider>
       <>
@@ -32,6 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 </>
     </ThemeProvider>
   </BrowserRouter>
+  </DocumentProvider>
 </QueryClientProvider>
   </React.StrictMode>
 );

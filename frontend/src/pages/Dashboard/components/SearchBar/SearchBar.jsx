@@ -1,7 +1,10 @@
 import { Search, SlidersHorizontal } from "lucide-react";
 import { motion } from "framer-motion";
 
-function SearchBar() {
+function SearchBar({
+  searchTerm,
+  setSearchTerm,
+}) {
   return (
     <motion.section
       initial={{
@@ -50,18 +53,16 @@ function SearchBar() {
           />
 
           <input
-            type="text"
-            placeholder="Search uploaded documents..."
-            className="
-              max-w-xl
-              w-full
-              bg-transparent
-              outline-none
-            "
-            style={{
-              color: "var(--text-primary)",
-            }}
-          />
+  value={searchTerm}
+  onChange={(event) =>
+    setSearchTerm(event.target.value)
+  }
+  placeholder="Search uploaded documents..."
+  className="flex-1 bg-transparent outline-none"
+  style={{
+    color: "var(--text-primary)",
+  }}
+/>
 
         </div>
 

@@ -1,4 +1,4 @@
-function History() {
+function Logout() {
   return (
     <div
       className="min-h-screen p-8"
@@ -13,10 +13,10 @@ function History() {
           color: "var(--text-primary)",
         }}
       >
-        Search History
+        Logout
       </h1>
     </div>
   );
 }
 
-export default History;
+export default Logout;

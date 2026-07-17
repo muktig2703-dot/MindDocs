@@ -6,8 +6,13 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import UploadCard from "./components/UploadCard/UploadCard";
 import RecentDocuments from "./components/RecentDocuments/RecentDocuments";
 import ChatPanel from "./components/Chat/ChatPanel";
+import { useDocuments } from "../../context/DocumentContext";
 function Dashboard() {
-  const [documents, setDocuments] = useState([]);
+  const {
+    documents,
+    setDocuments,
+} = useDocuments();
+  const [searchTerm, setSearchTerm] = useState("");
   const [messages, setMessages] = useState([]);
   const deleteDocument = (filename) => {
   setDocuments((prev) =>
@@ -27,6 +32,12 @@ const renameDocument = (filename, newName) => {
     )
   );
 };
+
+const filteredDocuments = documents.filter((document) =>
+  document.filename
+    .toLowerCase()
+    .includes(searchTerm.toLowerCase())
+);
   return (
     <div
       className="
@@ -49,7 +60,10 @@ const renameDocument = (filename, newName) => {
     messages={messages}
 />
 
-  <SearchBar />
+  <SearchBar
+  searchTerm={searchTerm}
+  setSearchTerm={setSearchTerm}
+/>
 
   <div
     className="
@@ -64,13 +78,12 @@ const renameDocument = (filename, newName) => {
 
     <div>
       <UploadCard
-    setDocuments={setDocuments}
 />
 
       <RecentDocuments
-  documents={documents}
   deleteDocument={deleteDocument}
   renameDocument={renameDocument}
+  searchTerm={searchTerm}
 />
     </div>
 

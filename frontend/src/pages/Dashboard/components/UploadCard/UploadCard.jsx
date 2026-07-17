@@ -3,12 +3,12 @@ import { UploadCloud, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { uploadDocument } from "../../../../services/documentService";
-function UploadCard({
-  setDocuments,
-}) {
+import { useDocuments } from "../../../../context/DocumentContext";
+function UploadCard() {
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const { setDocuments } = useDocuments();
   const handleFileUpload = async (event) => {
   const file = event.target.files?.[0];
 

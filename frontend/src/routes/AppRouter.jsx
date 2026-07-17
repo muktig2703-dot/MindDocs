@@ -7,11 +7,11 @@ import Landing from "../pages/Landing";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
-import SearchHistory from "../pages/SearchHistory";
-import DocumentHistory from "../pages/DocumentHistory";
+import History from "../pages/SearchHistory";
 import Favourites from "../pages/Favourites";
 import Settings from "../pages/Settings";
-
+import Documents from "../pages/Documents";
+import Logout from "../pages/Logout"
 function AppRouter() {
   return (
     <Routes>
@@ -46,14 +46,14 @@ function AppRouter() {
           element={<Dashboard />}
         />
 
-        <Route
-          path="/history"
-          element={<SearchHistory />}
+        <Route 
+          path="/documents" 
+          element={<Documents />} 
         />
 
         <Route
-          path="/documents"
-          element={<DocumentHistory />}
+          path="/history"
+          element={<History />}
         />
 
         <Route
@@ -65,6 +65,11 @@ function AppRouter() {
           path="/settings"
           element={<Settings />}
         />
+
+        <Route
+          path="/logout"
+          element={<Logout />}
+          />
 
       </Route>
 

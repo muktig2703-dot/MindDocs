@@ -1,10 +1,12 @@
 import { FileText } from "lucide-react";
 import DocumentCard from "./DocumentCard";
+import { useDocuments } from "../../../../context/DocumentContext";
 function RecentDocuments({
-  documents,
   deleteDocument,
   renameDocument,
+  searchTerm,
 }) {
+  const { documents } = useDocuments();
   return (
     <section className="mt-10">
 
@@ -64,22 +66,26 @@ function RecentDocuments({
     />
 
     <h3
-      className="text-xl font-semibold"
-      style={{
-        color: "var(--text-primary)",
-      }}
-    >
-      No Documents Uploaded Yet
-    </h3>
+  className="text-xl font-semibold"
+  style={{
+    color: "var(--text-primary)",
+  }}
+>
+  {searchTerm
+    ? "No matching documents"
+    : "No Documents Uploaded Yet"}
+</h3>
 
-    <p
-      className="mt-3"
-      style={{
-        color: "var(--text-secondary)",
-      }}
-    >
-      Upload your first PDF to begin chatting with AI.
-    </p>
+<p
+  className="mt-3"
+  style={{
+    color: "var(--text-secondary)",
+  }}
+>
+  {searchTerm
+    ? "Try searching with a different filename."
+    : "Upload your first PDF to begin chatting with AI."}
+</p>
   </div>
 ) : (
   documents.map(document => (
