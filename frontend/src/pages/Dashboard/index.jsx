@@ -8,6 +8,25 @@ import RecentDocuments from "./components/RecentDocuments/RecentDocuments";
 import ChatPanel from "./components/Chat/ChatPanel";
 function Dashboard() {
   const [documents, setDocuments] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const deleteDocument = (filename) => {
+  setDocuments((prev) =>
+    prev.filter((doc) => doc.filename !== filename)
+  );
+};
+
+const renameDocument = (filename, newName) => {
+  setDocuments((prev) =>
+    prev.map((doc) =>
+      doc.filename === filename
+        ? {
+            ...doc,
+            filename: newName,
+          }
+        : doc
+    )
+  );
+};
   return (
     <div
       className="
@@ -25,7 +44,10 @@ function Dashboard() {
 
   <Header />
 
-  <StatsGrid />
+  <StatsGrid
+    documents={documents}
+    messages={messages}
+/>
 
   <SearchBar />
 
@@ -42,19 +64,22 @@ function Dashboard() {
 
     <div>
       <UploadCard
-  onUploadSuccess={(document) =>
-    setDocuments((prev) => [document, ...prev])
-  }
+    setDocuments={setDocuments}
 />
 
       <RecentDocuments
   documents={documents}
+  deleteDocument={deleteDocument}
+  renameDocument={renameDocument}
 />
     </div>
 
     {/* Right Chat */}
 
-    <ChatPanel />
+    <ChatPanel
+    messages={messages}
+    setMessages={setMessages}
+/>
 
   </div>
 

@@ -1,6 +1,10 @@
 import { FileText } from "lucide-react";
 import DocumentCard from "./DocumentCard";
-function RecentDocuments({ documents }) {
+function RecentDocuments({
+  documents,
+  deleteDocument,
+  renameDocument,
+}) {
   return (
     <section className="mt-10">
 
@@ -78,12 +82,14 @@ function RecentDocuments({ documents }) {
     </p>
   </div>
 ) : (
-  documents.map((document) => (
+  documents.map(document => (
     <DocumentCard
-      key={document.id}
-      document={document}
-    />
-  ))
+    key={document.filename}
+    document={document}
+    deleteDocument={deleteDocument}
+    renameDocument={renameDocument}
+/>
+))
 )}
 
       </div>

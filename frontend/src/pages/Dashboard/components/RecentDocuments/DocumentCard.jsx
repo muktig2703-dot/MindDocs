@@ -6,8 +6,13 @@ import {
 } from "lucide-react";
 
 import { motion } from "framer-motion";
-
-function DocumentCard({ document }) {
+import { useState } from "react";
+function DocumentCard({
+  document,
+  deleteDocument,
+  renameDocument,
+}) {
+  const [expanded, setExpanded] = useState(false);
   return (
     <motion.div
       whileHover={{
@@ -96,7 +101,9 @@ function DocumentCard({ document }) {
               color: "var(--text-secondary)",
             }}
           >
-            {document.uploadedAt.toLocaleString()}
+            {document.uploadedAt
+  ? new Date(document.uploadedAt).toLocaleString()
+  : "Just now"}
           </span>
 
         </div>
@@ -128,19 +135,72 @@ function DocumentCard({ document }) {
         "
       >
 
-        <button className="rounded-xl border px-3 py-2 text-sm">
-          Open
-        </button>
+        <button
+  onClick={() => setExpanded(!expanded)}
+  className="rounded-xl border px-3 py-2 text-sm"
+>
+  {expanded ? "Close" : "Open"}
+</button>
 
         <button className="rounded-xl border px-3 py-2 text-sm">
           Search
         </button>
 
-        <button className="rounded-xl border px-3 py-2 text-sm">
-          Rename
-        </button>
+        <button
+  onClick={() => {
+    const newName = prompt(
+      "Rename document",
+      document.filename
+    );
+
+    if (
+      newName &&
+      newName.trim()
+    ) {
+      renameDocument(
+        document.filename,
+        newName.trim()
+      );
+    }
+  }}
+  className="rounded-xl border px-3 py-2 text-sm"
+>
+  Rename
+</button>
+
+<button
+  onClick={() => {
+    if (window.confirm("Delete this document?")) {
+      deleteDocument(document.filename);
+    }
+  }}
+  className="rounded-xl border px-3 py-2 text-sm"
+>
+  Delete
+</button>
 
       </div>
+      {expanded && (
+  <div
+    className="mt-5 rounded-2xl p-4"
+    style={{
+      background: "rgba(255,255,255,.03)",
+    }}
+  >
+    <p
+      className="
+        whitespace-pre-line
+        leading-7
+        text-sm
+      "
+      style={{
+        color: "var(--text-secondary)",
+      }}
+    >
+      {document.preview}
+    </p>
+  </div>
+)}
 
     </motion.div>
   );

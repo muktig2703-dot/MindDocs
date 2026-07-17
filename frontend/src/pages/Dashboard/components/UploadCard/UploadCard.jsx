@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { uploadDocument } from "../../../../services/documentService";
 function UploadCard({
-  onUploadSuccess,
+  setDocuments,
 }) {
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
@@ -19,16 +19,25 @@ function UploadCard({
     setProgress(20);
 
     const response = await uploadDocument(file);
+    setDocuments(previous => [
+    {
+        filename: response.filename,
+
+        pages: response.pages,
+
+        characters: response.characters,
+
+        preview: response.preview,
+
+        uploadedAt: new Date(),
+
+        size: file.size,
+    },
+
+    ...previous,
+]);
     setProgress(100);
     toast.success(response.message);
-    onUploadSuccess?.({
-  id: Date.now(),
-  filename: response.filename,
-  pages: response.pages,
-  characters: response.characters,
-  preview: response.preview,
-  uploadedAt: new Date(),
-});
     console.log(response);
 
   } catch (error) {

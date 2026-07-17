@@ -5,8 +5,23 @@ import {
 } from "lucide-react";
 
 import StatCard from "./StatCard";
+import formatFileSize from "../../../../utils/formatFileSize";
+function StatsGrid({
+    documents,
+    messages,
+}) {
+  const totalQuestions = messages.filter(
+  (message) => message.role === "user"
+).length;
 
-function StatsGrid() {
+const totalResponses = messages.filter(
+  (message) => message.role === "assistant"
+).length;
+
+const totalStorage = documents.reduce(
+  (total, document) => total + document.size,
+  0
+);
   return (
     <section
       className="
@@ -21,21 +36,21 @@ function StatsGrid() {
       <StatCard
         icon={FileText}
         title="Documents Uploaded"
-        value="12"
+        value={documents.length}
         subtitle="+2 this week"
       />
 
       <StatCard
         icon={MessageSquare}
         title="Questions Asked"
-        value="248"
+        value={totalQuestions}
         subtitle="+18 today"
       />
 
       <StatCard
         icon={HardDrive}
         title="Storage Used"
-        value="3.4 GB"
+        value={formatFileSize(totalStorage)}
         subtitle="68% utilized"
       />
     </section>
