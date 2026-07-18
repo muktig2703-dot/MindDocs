@@ -3,13 +3,15 @@ import {
   Pencil,
   Trash2,
   FolderOpen,
+  Star,
 } from "lucide-react";
-
+import { useDocuments } from "../../../context/DocumentContext";
 function DocumentRow({
   document,
   deleteDocument,
   renameDocument,
 }) {
+  const { togglePin } = useDocuments();
   return (
     <div
       className="
@@ -96,6 +98,32 @@ function DocumentRow({
         >
           <FolderOpen size={18} />
         </button>
+
+        <button
+  className="rounded-xl p-2 transition hover:bg-yellow-500/20"
+  title={
+    document.pinned
+      ? "Unpin"
+      : "Pin"
+  }
+  onClick={() =>
+    togglePin(document.filename)
+  }
+>
+  <Star
+    size={18}
+    fill={
+      document.pinned
+        ? "currentColor"
+        : "none"
+    }
+    style={{
+      color: document.pinned
+        ? "#FACC15"
+        : "var(--text-secondary)",
+    }}
+  />
+</button>
 
         <button
           className="rounded-xl p-2 transition hover:bg-white/10"

@@ -5,21 +5,37 @@ import ChatInput from "./ChatInput";
 import SuggestedPrompts from "./SuggestedPrompts";
 import ChatTyping from "./ChatTyping";
 import { askQuestion } from "../../../../services/chatService";
+import { useDocuments } from "../../../../context/DocumentContext";
+import { useChat } from "../../../../context/ChatContext";
 import toast from "react-hot-toast";
 
 function ChatPanel() {
-  const [messages, setMessages] = useState([
-  {
-    role: "assistant",
-    text: `Hello!
+  const {
+  currentSession,
+  currentSessionId,
+  createSession,
+  appendMessage,
+} = useChat();
 
-Upload a document and ask me anything.
-
-I'll answer using only the contents of your uploaded PDFs.`,
-  },
-]);
+const messages = currentSession?.messages ?? [];
 
 const [loading, setLoading] = useState(false);
+const {
+  documents,
+  addHistory,
+} = useDocuments();
+useEffect(() => {
+  if (!currentSessionId) {
+    createSession(
+      documents[0]?.filename ??
+      "Unknown Document"
+    );
+  }
+}, [
+  currentSessionId,
+  createSession,
+  documents,
+]);
 
 const sendMessage = async (question) => {
   if (!question.trim()) return;
@@ -29,21 +45,31 @@ const sendMessage = async (question) => {
     text: question,
   };
 
-  setMessages((prev) => [...prev, userMessage]);
+  appendMessage(
+  currentSessionId,
+  userMessage
+);
 
   setLoading(true);
 
   try {
     const response = await askQuestion(question);
 
-    setMessages((prev) => [
-      ...prev,
-      {
-        role: "assistant",
-        text: response.answer,
-sources: response.sources,
-      },
-    ]);
+    appendMessage(
+  currentSessionId,
+  {
+    role: "assistant",
+    text: response.answer,
+    sources: response.sources,
+  }
+);
+
+    addHistory({
+  question,
+  filename:
+    documents[0]?.filename ??
+    "Unknown Document",
+});
 
   } catch (error) {
     toast.error(

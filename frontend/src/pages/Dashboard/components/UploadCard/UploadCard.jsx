@@ -32,6 +32,8 @@ function UploadCard() {
         uploadedAt: new Date(),
 
         size: file.size,
+
+        pinned: false,
     },
 
     ...previous,

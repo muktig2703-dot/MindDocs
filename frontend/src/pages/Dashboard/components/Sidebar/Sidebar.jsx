@@ -85,9 +85,9 @@ function Sidebar() {
         />
 
         <NavItem
-          to="/favorites"
+          to="/favourites"
           icon={Star}
-          label="Favorites"
+          label="Favourites"
         />
 
         <NavItem

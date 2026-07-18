@@ -7,12 +7,14 @@ import { ThemeProvider } from "./context/ThemeContext";
 import App from "./App";
 import "./styles/globals.css";
 import { DocumentProvider } from "./context/DocumentContext";
+import { ChatProvider } from "./context/ChatContext";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <DocumentProvider>
+        <ChatProvider>
   <BrowserRouter>
     <ThemeProvider>
       <>
@@ -33,6 +35,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 </>
     </ThemeProvider>
   </BrowserRouter>
+  </ChatProvider>
   </DocumentProvider>
 </QueryClientProvider>
   </React.StrictMode>

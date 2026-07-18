@@ -4,18 +4,32 @@ import {
   Mic,
   SendHorizontal,
 } from "lucide-react";
-
+import { useDocuments } from "../../../../context/DocumentContext";
+import { useEffect } from "react";
 function ChatInput({
   onSend,
   loading,
 }) {
   const [question, setQuestion] = useState("");
+  const {
+  selectedQuestion,
+  setSelectedQuestion,
+} = useDocuments();
+
+useEffect(() => {
+  if (selectedQuestion) {
+    setQuestion(selectedQuestion);
+  }
+}, [selectedQuestion, setQuestion]);
+
   const handleSend = () => {
   if (!question.trim()) return;
 
   onSend(question);
 
   setQuestion("");
+
+  setSelectedQuestion("");
 };
   return (
     <div

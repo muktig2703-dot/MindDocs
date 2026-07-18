@@ -21,7 +21,7 @@ const items = [
   },
   {
     icon: Star,
-    label: "Favorites",
+    label: "Favourites",
   },
   {
     icon: Settings,

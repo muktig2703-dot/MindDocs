@@ -1,4 +1,28 @@
+import { useState } from "react";
+
+import { useDocuments } from "../../context/DocumentContext";
+
+import HistoryHeader from "./components/HistoryHeader";
+import HistoryToolbar from "./components/HistoryToolbar";
+import HistoryEmpty from "./components/HistoryEmpty";
+import HistoryList from "./components/HistoryList";
 function History() {
+  const {
+    history,
+    clearHistory,
+    deleteHistory,
+  } = useDocuments();
+
+  const [search, setSearch] =
+    useState("");
+
+  const filteredHistory =
+    history.filter((item) =>
+      item.question
+        .toLowerCase()
+        .includes(search.toLowerCase())
+    );
+
   return (
     <div
       className="min-h-screen p-8"
@@ -6,15 +30,25 @@ function History() {
         background: "var(--background)",
       }}
     >
-      <h1
-        className="text-4xl font-bold"
-        style={{
-          fontFamily: '"Space Grotesk", sans-serif',
-          color: "var(--text-primary)",
-        }}
-      >
-        Search History
-      </h1>
+      <HistoryHeader
+        total={history.length}
+      />
+
+      <HistoryToolbar
+        search={search}
+        setSearch={setSearch}
+        clearHistory={clearHistory}
+      />
+
+      {filteredHistory.length ===
+      0 ? (
+        <HistoryEmpty />
+      ) : (
+        <HistoryList
+  history={filteredHistory}
+  deleteHistory={deleteHistory}
+/>
+      )}
     </div>
   );
 }
