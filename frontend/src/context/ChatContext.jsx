@@ -69,9 +69,15 @@ I'll answer using only the contents of your uploaded PDFs.`,
           ? {
               ...session,
               messages: [
-                ...session.messages,
-                message,
-              ],
+  ...session.messages,
+  message,
+],
+
+title:
+  session.title === "New Conversation" &&
+  message.role === "user"
+    ? message.text
+    : session.title,
             }
           : session
       )
@@ -95,6 +101,10 @@ const selectSession = (sessionId) => {
   setCurrentSessionId(sessionId);
 };
 
+const getSession = (id) =>
+  sessions.find(
+    (session) => session.id === id
+  );
 
 
   // Delete session
@@ -133,6 +143,7 @@ updateSession,
 selectSession,
 deleteSession,
 clearSessions,
+getSession,
     }),
     [
       sessions,

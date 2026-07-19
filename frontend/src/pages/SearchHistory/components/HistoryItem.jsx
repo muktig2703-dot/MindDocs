@@ -7,10 +7,10 @@ import {
 import { motion } from "framer-motion";
 import { formatRelativeTime } from "../../../utils/time";
 import { useNavigate } from "react-router-dom";
-import { useDocuments } from "../../../context/DocumentContext";
+import { useChat } from "../../../context/ChatContext";
 function HistoryItem({
   item,
-  deleteHistory,
+  deleteSession,
 }) {
 
 const time = formatRelativeTime(
@@ -19,7 +19,7 @@ const time = formatRelativeTime(
 
 const navigate = useNavigate();
 
-const { setSelectedQuestion } = useDocuments();
+const { selectSession } = useChat();
 
   return (
     <motion.div
@@ -55,7 +55,7 @@ const { setSelectedQuestion } = useDocuments();
               color: "var(--text-primary)",
             }}
           >
-            {item.question}
+            {item.title}
           </h3>
 
           <div
@@ -84,9 +84,9 @@ const { setSelectedQuestion } = useDocuments();
   <div className="mt-5">
   <button
   onClick={() => {
-    setSelectedQuestion(item.question);
-    navigate("/dashboard");
-  }}
+  selectSession(item.id);
+  navigate("/dashboard");
+}}
   className="
     rounded-xl
     px-4
@@ -108,8 +108,8 @@ const { setSelectedQuestion } = useDocuments();
 
         <button
           onClick={() =>
-            deleteHistory(item.id)
-          }
+  deleteSession(item.id)
+}
           className="
             rounded-xl
             p-2

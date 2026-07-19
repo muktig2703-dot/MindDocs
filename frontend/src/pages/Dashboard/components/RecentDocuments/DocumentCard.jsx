@@ -7,12 +7,14 @@ import {
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useDocuments } from "../../../../context/DocumentContext";
 function DocumentCard({
   document,
   deleteDocument,
   renameDocument,
 }) {
   const [expanded, setExpanded] = useState(false);
+  const { togglePin } = useDocuments();
   return (
     <motion.div
       whileHover={{
@@ -145,6 +147,13 @@ function DocumentCard({
         <button className="rounded-xl border px-3 py-2 text-sm">
           Search
         </button>
+
+        <button
+  onClick={() => togglePin(document.filename)}
+  className="rounded-xl border px-3 py-2 text-sm"
+>
+  {document.pinned ? " Unpin" : " Pin"}
+</button>
 
         <button
   onClick={() => {

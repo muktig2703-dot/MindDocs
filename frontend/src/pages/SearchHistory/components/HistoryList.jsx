@@ -3,7 +3,7 @@ import HistoryItem from "./HistoryItem";
 
 function HistoryList({
   history,
-  deleteHistory,
+  deleteSession,
 }) {
   const groups = {
     Today: [],
@@ -44,12 +44,10 @@ function HistoryList({
                 <AnimatePresence>
                   {items.map((item) => (
                     <HistoryItem
-                      key={item.id}
-                      item={item}
-                      deleteHistory={
-                        deleteHistory
-                      }
-                    />
+  key={item.id}
+  item={item}
+  deleteSession={deleteSession}
+/>
                   ))}
                 </AnimatePresence>
               </div>

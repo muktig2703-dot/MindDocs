@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useDocuments } from "../../context/DocumentContext";
+import { useChat } from "../../context/ChatContext";
 
 import HistoryHeader from "./components/HistoryHeader";
 import HistoryToolbar from "./components/HistoryToolbar";
@@ -8,20 +8,20 @@ import HistoryEmpty from "./components/HistoryEmpty";
 import HistoryList from "./components/HistoryList";
 function History() {
   const {
-    history,
-    clearHistory,
-    deleteHistory,
-  } = useDocuments();
+  sessions,
+  clearSessions,
+  deleteSession,
+} = useChat();
 
   const [search, setSearch] =
     useState("");
 
   const filteredHistory =
-    history.filter((item) =>
-      item.question
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    );
+  sessions.filter((session) =>
+    session.title
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
 
   return (
     <div
@@ -31,14 +31,14 @@ function History() {
       }}
     >
       <HistoryHeader
-        total={history.length}
-      />
+  total={sessions.length}
+/>
 
       <HistoryToolbar
-        search={search}
-        setSearch={setSearch}
-        clearHistory={clearHistory}
-      />
+  search={search}
+  setSearch={setSearch}
+  clearHistory={clearSessions}
+/>
 
       {filteredHistory.length ===
       0 ? (
@@ -46,7 +46,7 @@ function History() {
       ) : (
         <HistoryList
   history={filteredHistory}
-  deleteHistory={deleteHistory}
+  deleteSession={deleteSession}
 />
       )}
     </div>

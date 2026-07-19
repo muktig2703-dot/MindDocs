@@ -20,10 +20,7 @@ function ChatPanel() {
 const messages = currentSession?.messages ?? [];
 
 const [loading, setLoading] = useState(false);
-const {
-  documents,
-  addHistory,
-} = useDocuments();
+const {documents} = useDocuments();
 useEffect(() => {
   if (!currentSessionId) {
     createSession(
@@ -63,13 +60,6 @@ const sendMessage = async (question) => {
     sources: response.sources,
   }
 );
-
-    addHistory({
-  question,
-  filename:
-    documents[0]?.filename ??
-    "Unknown Document",
-});
 
   } catch (error) {
     toast.error(
