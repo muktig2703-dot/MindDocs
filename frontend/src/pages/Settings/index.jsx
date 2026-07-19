@@ -1,3 +1,9 @@
+import SettingsHeader from "./components/SettingsHeader";
+import ProfileCard from "./components/ProfileCard";
+import AppearanceCard from "./components/AppearanceCard";
+import DataCard from "./components/DataCard";
+import AccountCard from "./components/AccountCard"
+
 function Settings() {
   return (
     <div
@@ -6,15 +12,17 @@ function Settings() {
         background: "var(--background)",
       }}
     >
-      <h1
-        className="text-4xl font-bold"
-        style={{
-          fontFamily: '"Space Grotesk", sans-serif',
-          color: "var(--text-primary)",
-        }}
-      >
-        Settings
-      </h1>
+      <SettingsHeader />
+
+      <div className="mt-8 grid gap-8">
+        <ProfileCard />
+
+        <AppearanceCard />
+
+        <DataCard />
+
+        <AccountCard />
+      </div>
     </div>
   );
 }
