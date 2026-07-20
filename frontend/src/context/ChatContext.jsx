@@ -128,6 +128,11 @@ const getSession = (id) =>
     setCurrentSessionId(null);
   };
 
+  const resetChats = () => {
+  setSessions([]);
+  setCurrentSessionId(null);
+};
+
   const value = useMemo(
     () => ({
       sessions,
@@ -144,6 +149,7 @@ selectSession,
 deleteSession,
 clearSessions,
 getSession,
+resetChats,
     }),
     [
       sessions,

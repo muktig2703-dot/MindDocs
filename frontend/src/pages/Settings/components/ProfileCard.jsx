@@ -1,26 +1,11 @@
 import { User } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useDocuments } from "../../../context/DocumentContext";
 import toast from "react-hot-toast";
 function ProfileCard() {
-  const [profile, setProfile] = useState({
-  name: "",
-  username: "",
-  email: "",
-});
-
-useEffect(() => {
-  const saved = localStorage.getItem("minddocs-profile");
-
-  if (saved) {
-    setProfile(JSON.parse(saved));
-  } else {
-    setProfile({
-      name: "Mukti",
-      username: "@mukti",
-      email: "mukti@email.com",
-    });
-  }
-}, []);
+  const {
+  profile,
+  setProfile,
+} = useDocuments();
 
 const handleChange = (field, value) => {
   setProfile((prev) => ({
@@ -30,12 +15,7 @@ const handleChange = (field, value) => {
 };
 
 const saveProfile = () => {
-  localStorage.setItem(
-    "minddocs-profile",
-    JSON.stringify(profile)
-  );
-
-  toast.success("Profile updated.");
+  toast.success("Profile updated successfully.");
 };
   return (
     <div
@@ -110,7 +90,19 @@ onChange={(e) =>
           />
           <button
   onClick={saveProfile}
-  className="mt-6 rounded-xl px-5 py-3"
+  disabled={
+    !profile.name.trim() ||
+    !profile.username.trim() ||
+    !profile.email.trim()
+  }
+  className="
+mt-6
+rounded-xl
+px-5
+py-3
+disabled:opacity-50
+disabled:cursor-not-allowed
+"
   style={{
     background: "var(--primary)",
     color: "#fff",
