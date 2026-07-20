@@ -1,33 +1,97 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 
+import { login, getCurrentUser } from "../../services/authService";
+import { useAuth } from "../../context/AuthContext";
+import { saveToken } from "../../utils/authStorage";
 function LoginForm() {
+  const { setUser } = useAuth();
+  const [remember, setRemember] = useState(false);
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+  email: "",
+  password: "",
+});
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (field, value) => {
+  setForm((prev) => ({
+    ...prev,
+    [field]: value,
+  }));
+};
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  setLoading(true);
+
+  try {
+    const response = await login(form);
+    saveToken(
+  response.access_token,
+  remember
+);
+
+const user = await getCurrentUser();
+
+setUser(user);
+
+toast.success("Welcome back!");
+
+navigate("/dashboard");
+  } catch (error) {
+    toast.error(
+      error.response?.data?.detail ||
+      "Login failed."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
   return (
-    <form className="space-y-6">
-
+      <form
+  onSubmit={handleSubmit}
+  className="space-y-6"
+>
       <Input
-        label="Email"
-        type="email"
-        placeholder="Enter your email"
-      />
-
+  label="Email"
+  type="email"
+  placeholder="Enter your email"
+  value={form.email}
+  onChange={(e) =>
+    handleChange("email", e.target.value)
+  }
+/>
       <Input
-        label="Password"
-        type="password"
-        placeholder="••••••••"
-      />
+  label="Password"
+  type="password"
+  placeholder="••••••••"
+  value={form.password}
+  onChange={(e) =>
+    handleChange("password", e.target.value)
+  }
+/>
 
       <div className="flex items-center justify-between">
 
         <label className="flex items-center gap-2 text-sm">
+  <input
+    type="checkbox"
+    checked={remember}
+    onChange={(e) =>
+      setRemember(e.target.checked)
+    }
+  />
 
-          <input type="checkbox" />
-
-          Remember me
-
-        </label>
+  Remember me
+</label>
 
         <Link
           to="#"
@@ -42,11 +106,12 @@ function LoginForm() {
       </div>
 
       <Button
-        type="submit"
-        className="w-full py-3"
-      >
-        Login
-      </Button>
+  type="submit"
+  className="w-full py-3"
+  disabled={loading}
+>
+  {loading ? "Signing In..." : "Login"}
+</Button>
 
       <div className="flex items-center gap-4">
 

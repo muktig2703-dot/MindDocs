@@ -12,6 +12,8 @@ import Favourites from "../pages/Favourites";
 import Settings from "../pages/Settings";
 import Documents from "../pages/Documents";
 import Logout from "../pages/Logout"
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
 function AppRouter() {
   return (
     <Routes>
@@ -28,48 +30,80 @@ function AppRouter() {
       <Route element={<AuthLayout />}>
 
         <Route
-          path="/login"
-          element={<Login />}
-        />
+  path="/login"
+  element={
+    <PublicRoute>
+      <Login />
+    </PublicRoute>
+  }
+/>
 
-        <Route
-          path="/register"
-          element={<Register />}
-        />
+<Route
+  path="/register"
+  element={
+    <PublicRoute>
+      <Register />
+    </PublicRoute>
+  }
+/>
 
       </Route>
 
       <Route element={<DashboardLayout />}>
 
         <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
-
-        <Route 
-          path="/documents" 
-          element={<Documents />} 
-        />
-
-        <Route
-          path="/history"
-          element={<History />}
-        />
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
 
         <Route
-          path="/favourites"
-          element={<Favourites />}
-        />
+  path="/documents"
+  element={
+    <ProtectedRoute>
+      <Documents />
+    </ProtectedRoute>
+  }
+/>
 
         <Route
-          path="/settings"
-          element={<Settings />}
-        />
+  path="/history"
+  element={
+    <ProtectedRoute>
+      <History />
+    </ProtectedRoute>
+  }
+/>
 
         <Route
-          path="/logout"
-          element={<Logout />}
-          />
+  path="/favourites"
+  element={
+    <ProtectedRoute>
+      <Favourites />
+    </ProtectedRoute>
+  }
+/>
+
+        <Route
+  path="/settings"
+  element={
+    <ProtectedRoute>
+      <Settings />
+    </ProtectedRoute>
+  }
+/>
+
+        <Route
+  path="/logout"
+  element={
+    <ProtectedRoute>
+      <Logout />
+    </ProtectedRoute>
+  }
+/>
 
       </Route>
 

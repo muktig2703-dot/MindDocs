@@ -1,21 +1,20 @@
 import { User } from "lucide-react";
-import { useDocuments } from "../../../context/DocumentContext";
 import toast from "react-hot-toast";
+import { useAuth } from "../../../context/AuthContext";
 function ProfileCard() {
   const {
-  profile,
-  setProfile,
-} = useDocuments();
+  user,
+  updateUser,
+} = useAuth();
 
 const handleChange = (field, value) => {
-  setProfile((prev) => ({
-    ...prev,
+  updateUser({
     [field]: value,
-  }));
+  });
 };
 
 const saveProfile = () => {
-  toast.success("Profile updated successfully.");
+  toast.success("Profile updated.");
 };
   return (
     <div
@@ -51,7 +50,7 @@ const saveProfile = () => {
 
         <div className="flex-1 grid gap-4">
           <input
-            value={profile.name}
+            value={user?.name || ""}
 onChange={(e) =>
   handleChange("name", e.target.value)
 }
@@ -64,7 +63,7 @@ onChange={(e) =>
           />
 
           <input
-            value={profile.username}
+            value={user?.username || ""}
 onChange={(e) =>
   handleChange("username", e.target.value)
 }
@@ -77,7 +76,7 @@ onChange={(e) =>
           />
 
           <input
-            value={profile.email}
+            value={user?.email || ""}
 onChange={(e) =>
   handleChange("email", e.target.value)
 }
@@ -91,10 +90,10 @@ onChange={(e) =>
           <button
   onClick={saveProfile}
   disabled={
-    !profile.name.trim() ||
-    !profile.username.trim() ||
-    !profile.email.trim()
-  }
+  !user?.name?.trim() ||
+  !user?.username?.trim() ||
+  !user?.email?.trim()
+}
   className="
 mt-6
 rounded-xl

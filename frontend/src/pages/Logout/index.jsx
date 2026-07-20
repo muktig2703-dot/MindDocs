@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import toast from "react-hot-toast";
-
 import { useChat } from "../../context/ChatContext";
 import { useDocuments } from "../../context/DocumentContext";
-
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 function Logout() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const { resetChats } = useChat();
 
@@ -25,13 +25,15 @@ function Logout() {
     // Future:
     // localStorage.removeItem("token");
 
-    resetChats();
-    clearHistory();
-    setDocuments([]);
+    logout();
 
-    toast.success("Logged out successfully.");
+resetChats();
+clearHistory();
+setDocuments([]);
 
-    navigate("/login");
+toast.success("Logged out successfully.");
+
+navigate("/login");
   };
 
   return (

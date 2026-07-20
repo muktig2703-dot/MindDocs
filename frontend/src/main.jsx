@@ -8,6 +8,7 @@ import App from "./App";
 import "./styles/globals.css";
 import { DocumentProvider } from "./context/DocumentContext";
 import { ChatProvider } from "./context/ChatContext";
+import { AuthProvider } from "./context/AuthContext";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <DocumentProvider>
         <ChatProvider>
+          <AuthProvider>
   <BrowserRouter>
     <ThemeProvider>
       <>
@@ -35,6 +37,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 </>
     </ThemeProvider>
   </BrowserRouter>
+  </AuthProvider>
   </ChatProvider>
   </DocumentProvider>
 </QueryClientProvider>

@@ -1,7 +1,16 @@
 import { Bell, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
+import { useAuth } from "../../../../context/AuthContext";
 function Header() {
+  const { user } = useAuth();
+
+const initials =
+  user?.name
+    ?.split(" ")
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase() || "U";
   const hour = new Date().getHours();
   <button
 className="lg:hidden"
@@ -42,7 +51,7 @@ className="lg:hidden"
             color: "var(--text-primary)",
           }}
         >
-          {greeting}, Mukti
+          {greeting}, {user?.name || "User"}
         </h1>
 
         <p
@@ -121,7 +130,7 @@ className="lg:hidden"
               color: "var(--primary)",
             }}
           >
-            MG
+            {initials}
           </div>
 
           <div className="text-left">
@@ -132,7 +141,7 @@ className="lg:hidden"
                 color: "var(--text-primary)",
               }}
             >
-              Mukti Gupta
+              {user?.name}
             </p>
 
             <p
@@ -141,7 +150,7 @@ className="lg:hidden"
                 color: "var(--text-secondary)",
               }}
             >
-              Student
+              @{user?.username}
             </p>
 
           </div>

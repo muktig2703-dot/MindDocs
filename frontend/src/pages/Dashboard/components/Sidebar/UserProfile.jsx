@@ -1,6 +1,14 @@
 import { ChevronUp, Moon } from "lucide-react";
-
+import { useAuth } from "../../../../context/AuthContext";
 function UserProfile() {
+  const { user } = useAuth();
+
+const initials =
+  user?.name
+    ?.split(" ")
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase() || "U";
   return (
     <div
       className="
@@ -35,7 +43,7 @@ function UserProfile() {
             color: "var(--primary)",
           }}
         >
-          MG
+          {initials}
         </div>
 
         <div className="flex-1">
@@ -46,7 +54,7 @@ function UserProfile() {
               color: "var(--text-primary)",
             }}
           >
-            Mukti Gupta
+            {user?.name}
           </h4>
 
           <p
@@ -55,7 +63,7 @@ function UserProfile() {
               color: "var(--text-secondary)",
             }}
           >
-            mukti@example.com
+            {user?.email}
           </p>
 
         </div>
