@@ -7,7 +7,7 @@ import ThemeToggle from "./ThemeToggle";
 import Button from "../ui/Button";
 import Container from "../ui/Container";
 import MobileMenu from "./MobileMenu";
-
+import { Link } from "react-router-dom";
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -81,14 +81,16 @@ function Navbar() {
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
-
+            <Link to="/login">
             <Button variant="secondary">
               Login
             </Button>
-
+            </Link>
+            <Link to="/register">
             <Button>
               Get Started
             </Button>
+            </Link>
 
             <MobileMenu />
           </div>

@@ -1,15 +1,20 @@
+import { BrainCircuit } from "lucide-react";
+
 function Logo() {
   return (
     <div className="flex items-center gap-3 select-none">
       <div
         className="flex h-10 w-10 items-center justify-center rounded-xl"
         style={{
-          background: "linear-gradient(135deg, #7C3AED, #06B6D4)",
+          background:
+            "linear-gradient(135deg, #7C3AED, #06B6D4)",
         }}
       >
-        <span className="text-lg font-bold text-white">
-          M
-        </span>
+        <BrainCircuit
+          size={22}
+          color="white"
+          strokeWidth={2.2}
+        />
       </div>
 
       <span

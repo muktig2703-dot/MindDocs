@@ -54,23 +54,19 @@ function Footer() {
             gap-6
           "
         >
-          <Link to="/">
-            Home
-          </Link>
 
-          <a href="#">
+          <a
+            href="https://github.com/muktig2703-dot"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             GitHub
           </a>
 
-          <Link to="#">
-            Privacy
-          </Link>
-
-          <Link to="#">
-            Terms
-          </Link>
+          <a href="mailto:muktig2703@gmail.com">
+            Email
+          </a>
         </div>
-
       </div>
 
       <p

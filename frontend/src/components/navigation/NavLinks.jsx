@@ -16,8 +16,8 @@ const links = [
     href: "#tech-stack",
   },
   {
-    label: "About",
-    href: "#about",
+    label: "Benefits",
+    href: "#benefits",
   },
 ];
 
