@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from app.models.chat import ChatRequest, ChatResponse
+from app.schemas.chat import ChatRequest, ChatResponse
 from app.prompts.rag_prompt import RAG_PROMPT
 from app.services.chat_service import ask_llm
 from app.services.embedding_service import get_embedding_model

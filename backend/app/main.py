@@ -7,6 +7,7 @@ from app.routers import chat
 from app.core.database import Base, engine
 from app.models.user import User
 from app.routers.auth import router as auth_router
+from app.models.document import Document
 Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="MindDocs API",

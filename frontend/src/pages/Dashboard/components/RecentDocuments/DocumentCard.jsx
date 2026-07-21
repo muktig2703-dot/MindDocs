@@ -103,8 +103,8 @@ function DocumentCard({
               color: "var(--text-secondary)",
             }}
           >
-            {document.uploadedAt
-  ? new Date(document.uploadedAt).toLocaleString()
+            {document.uploaded_at
+  ? new Date(document.uploaded_at).toLocaleString()
   : "Just now"}
           </span>
 
@@ -149,7 +149,7 @@ function DocumentCard({
         </button>
 
         <button
-  onClick={() => togglePin(document.filename)}
+  onClick={() => togglePin(document.id)}
   className="rounded-xl border px-3 py-2 text-sm"
 >
   {document.pinned ? " Unpin" : " Pin"}
@@ -167,7 +167,7 @@ function DocumentCard({
       newName.trim()
     ) {
       renameDocument(
-        document.filename,
+        document.id,
         newName.trim()
       );
     }
@@ -180,7 +180,7 @@ function DocumentCard({
 <button
   onClick={() => {
     if (window.confirm("Delete this document?")) {
-      deleteDocument(document.filename);
+      deleteDocument(document.id);
     }
   }}
   className="rounded-xl border px-3 py-2 text-sm"

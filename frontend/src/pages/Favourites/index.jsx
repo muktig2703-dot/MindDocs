@@ -6,37 +6,13 @@ import EmptyState from "../Documents/components/EmptyState";
 function Favourites() {
   const {
     documents,
-    setDocuments,
-  } = useDocuments();
+    deleteDocument,
+    renameDocument,
+} = useDocuments();
 
   const favourites = documents.filter(
     (doc) => doc.pinned
   );
-
-  const deleteDocument = (filename) => {
-    setDocuments((prev) =>
-      prev.filter(
-        (doc) =>
-          doc.filename !== filename
-      )
-    );
-  };
-
-  const renameDocument = (
-    filename,
-    newName
-  ) => {
-    setDocuments((prev) =>
-      prev.map((doc) =>
-        doc.filename === filename
-          ? {
-              ...doc,
-              filename: newName,
-            }
-          : doc
-      )
-    );
-  };
 
   return (
     <div

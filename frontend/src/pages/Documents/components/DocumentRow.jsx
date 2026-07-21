@@ -62,7 +62,7 @@ function DocumentRow({
               color: "var(--text-primary)",
             }}
           >
-            {document.filename}
+            {document.id}
           </h3>
 
           <p
@@ -107,7 +107,7 @@ function DocumentRow({
       : "Pin"
   }
   onClick={() =>
-    togglePin(document.filename)
+    togglePin(document.id)
   }
 >
   <Star
@@ -131,12 +131,12 @@ function DocumentRow({
           onClick={() => {
             const name = prompt(
               "Rename document",
-              document.filename
+              document.id
             );
 
             if (name) {
               renameDocument(
-                document.filename,
+                document.id,
                 name
               );
             }
@@ -150,7 +150,7 @@ function DocumentRow({
           title="Delete"
           onClick={() =>
             deleteDocument(
-              document.filename
+              document.id
             )
           }
         >

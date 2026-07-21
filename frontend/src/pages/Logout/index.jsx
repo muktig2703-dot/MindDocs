@@ -10,10 +10,7 @@ function Logout() {
 
   const { resetChats } = useChat();
 
-  const {
-    clearHistory,
-    setDocuments,
-  } = useDocuments();
+  const { setDocuments } = useDocuments();
 
   const handleLogout = () => {
     const confirmed = window.confirm(
@@ -28,7 +25,6 @@ function Logout() {
     logout();
 
 resetChats();
-clearHistory();
 setDocuments([]);
 
 toast.success("Logged out successfully.");

@@ -17,3 +17,39 @@ export async function uploadDocument(file) {
 
   return response.data;
 }
+
+export async function getDocuments() {
+  const response = await api.get("/documents");
+
+  return response.data;
+}
+
+export async function deleteDocument(id) {
+  const response = await api.delete(
+    `/documents/${id}`
+  );
+
+  return response.data;
+}
+
+export async function renameDocument(
+  id,
+  filename
+) {
+  const response = await api.patch(
+    `/documents/${id}`,
+    {
+      filename,
+    }
+  );
+
+  return response.data;
+}
+
+export async function togglePin(id) {
+  const response = await api.patch(
+    `/documents/${id}/pin`
+  );
+
+  return response.data;
+}

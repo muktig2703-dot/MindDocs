@@ -90,7 +90,7 @@ function RecentDocuments({
 ) : (
   documents.map(document => (
     <DocumentCard
-    key={document.filename}
+    key={document.id}
     document={document}
     deleteDocument={deleteDocument}
     renameDocument={renameDocument}

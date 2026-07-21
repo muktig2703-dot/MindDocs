@@ -6,31 +6,11 @@ import DocumentsTable from "./components/DocumentsTable";
 import { useDocuments } from "../../context/DocumentContext";
 function Documents() {
   const [searchTerm, setSearchTerm] = useState("");
-  const { documents, setDocuments } = useDocuments();
-  const deleteDocument = (filename) => {
-  setDocuments((previous) =>
-    previous.filter(
-      (document) =>
-        document.filename !== filename
-    )
-  );
-};
-
-  const renameDocument = (
-  filename,
-  newName
-) => {
-  setDocuments((previous) =>
-    previous.map((document) =>
-      document.filename === filename
-        ? {
-            ...document,
-            filename: newName,
-          }
-        : document
-    )
-  );
-};
+  const {
+    documents,
+    deleteDocument,
+    renameDocument,
+} = useDocuments();
 
   const filteredDocuments = documents.filter(
   (document) =>

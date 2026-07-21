@@ -2,13 +2,12 @@ import { useRef, useState } from "react";
 import { UploadCloud, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
-import { uploadDocument } from "../../../../services/documentService";
 import { useDocuments } from "../../../../context/DocumentContext";
 function UploadCard() {
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const { setDocuments } = useDocuments();
+  const { uploadNewDocument } = useDocuments();
   const handleFileUpload = async (event) => {
   const file = event.target.files?.[0];
 
@@ -18,29 +17,11 @@ function UploadCard() {
     setUploading(true);
     setProgress(20);
 
-    const response = await uploadDocument(file);
-    setDocuments(previous => [
-    {
-        filename: response.filename,
+    await uploadNewDocument(file);
 
-        pages: response.pages,
+setProgress(100);
 
-        characters: response.characters,
-
-        preview: response.preview,
-
-        uploadedAt: new Date(),
-
-        size: file.size,
-
-        pinned: false,
-    },
-
-    ...previous,
-]);
-    setProgress(100);
-    toast.success(response.message);
-    console.log(response);
+toast.success("Document uploaded successfully.");
 
   } catch (error) {
     console.error(error);

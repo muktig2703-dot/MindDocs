@@ -10,28 +10,11 @@ import { useDocuments } from "../../context/DocumentContext";
 function Dashboard() {
   const {
     documents,
-    setDocuments,
+    deleteDocument,
+    renameDocument,
 } = useDocuments();
   const [searchTerm, setSearchTerm] = useState("");
   const [messages, setMessages] = useState([]);
-  const deleteDocument = (filename) => {
-  setDocuments((prev) =>
-    prev.filter((doc) => doc.filename !== filename)
-  );
-};
-
-const renameDocument = (filename, newName) => {
-  setDocuments((prev) =>
-    prev.map((doc) =>
-      doc.filename === filename
-        ? {
-            ...doc,
-            filename: newName,
-          }
-        : doc
-    )
-  );
-};
 
 const filteredDocuments = documents.filter((document) =>
   document.filename

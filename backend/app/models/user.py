@@ -4,7 +4,7 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy import DateTime
-
+from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 
@@ -45,3 +45,9 @@ class User(Base):
         DateTime,
         default=datetime.utcnow,
     )
+
+    documents = relationship(
+    "Document",
+    back_populates="user",
+    cascade="all, delete-orphan",
+)
