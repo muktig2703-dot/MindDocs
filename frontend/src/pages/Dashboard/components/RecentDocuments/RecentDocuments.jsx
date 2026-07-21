@@ -22,14 +22,6 @@ function RecentDocuments({
           Recent Documents
         </h2>
 
-        <button
-          style={{
-            color: "var(--primary)",
-          }}
-        >
-          View All
-        </button>
-
       </div>
 
       <div

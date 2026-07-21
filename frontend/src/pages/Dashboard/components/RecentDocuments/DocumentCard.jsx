@@ -58,15 +58,6 @@ function DocumentCard({
           />
         </div>
 
-        <button>
-          <MoreHorizontal
-            size={20}
-            style={{
-              color: "var(--text-secondary)",
-            }}
-          />
-        </button>
-
       </div>
 
       {/* Title */}
@@ -143,10 +134,6 @@ function DocumentCard({
 >
   {expanded ? "Close" : "Open"}
 </button>
-
-        <button className="rounded-xl border px-3 py-2 text-sm">
-          Search
-        </button>
 
         <button
   onClick={() => togglePin(document.id)}

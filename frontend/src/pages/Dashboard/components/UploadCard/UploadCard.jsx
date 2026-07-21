@@ -15,7 +15,7 @@ function UploadCard() {
 
   try {
     setUploading(true);
-    setProgress(20);
+    setProgress(50);
 
     await uploadNewDocument(file);
 
@@ -171,23 +171,6 @@ toast.success("Document uploaded successfully.");
 >
   {uploading ? "Uploading..." : "Browse Files"}
 </button>
-
-          <div
-            className="
-              mt-8
-              flex
-              justify-center
-              items-center
-              gap-3
-              text-sm
-            "
-            style={{
-              color: "var(--text-secondary)",
-            }}
-          >
-            <FileText size={16} />
-            PDF • Maximum file size 25 MB
-          </div>
         </motion.div>
 
         {/* Upload Progress (Placeholder) */}

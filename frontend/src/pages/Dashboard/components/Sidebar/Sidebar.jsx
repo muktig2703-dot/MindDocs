@@ -9,7 +9,6 @@ import {
 
 import NavItem from "./NavItem";
 import StorageCard from "./StorageCard";
-import UserProfile from "./UserProfile";
 
 function Sidebar() {
   return (
@@ -109,8 +108,6 @@ function Sidebar() {
       <div className="mt-auto pt-8 space-y-5">
 
         <StorageCard />
-
-        <UserProfile />
 
       </div>
 

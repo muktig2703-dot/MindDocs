@@ -69,33 +69,6 @@ className="lg:hidden"
 
       <div className="flex items-center gap-4">
 
-        {/* Notification */}
-
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.96 }}
-          className="
-            flex
-            h-11
-            w-11
-            items-center
-            justify-center
-            rounded-xl
-            border
-          "
-          style={{
-            background: "var(--card)",
-            borderColor: "var(--border)",
-          }}
-        >
-          <Bell
-            size={18}
-            style={{
-              color: "var(--text-secondary)",
-            }}
-          />
-        </motion.button>
-
         {/* User */}
 
         <motion.button
@@ -154,13 +127,6 @@ className="lg:hidden"
             </p>
 
           </div>
-
-          <ChevronDown
-            size={16}
-            style={{
-              color: "var(--text-secondary)",
-            }}
-          />
 
         </motion.button>
 

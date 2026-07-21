@@ -22,6 +22,11 @@ const totalStorage = documents.reduce(
   (total, document) => total + document.size,
   0
 );
+
+const STORAGE_LIMIT = 5 * 1024 * 1024 * 1024;
+
+const storagePercentage =
+  ((totalStorage / STORAGE_LIMIT) * 100).toFixed(2);
   return (
     <section
       className="
@@ -37,21 +42,28 @@ const totalStorage = documents.reduce(
         icon={FileText}
         title="Documents Uploaded"
         value={documents.length}
-        subtitle="+2 this week"
+        subtitle={`${documents.filter((doc) => {
+  const uploaded = new Date(doc.uploaded_at);
+  const today = new Date();
+  const diff =
+    (today - uploaded) / (1000 * 60 * 60 * 24);
+
+  return diff <= 7;
+}).length} uploaded this week`}
       />
 
       <StatCard
         icon={MessageSquare}
         title="Questions Asked"
         value={totalQuestions}
-        subtitle="+18 today"
+        subtitle={`${totalResponses} AI responses`}
       />
 
       <StatCard
         icon={HardDrive}
         title="Storage Used"
         value={formatFileSize(totalStorage)}
-        subtitle="68% utilized"
+        subtitle={`${storagePercentage}% of 5 GB`}
       />
     </section>
   );

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from datetime import datetime
 
 class UploadResponse(BaseModel):
     filename: str
@@ -8,13 +8,12 @@ class UploadResponse(BaseModel):
     preview: str
     message: str
 
-from datetime import datetime
-
 class DocumentResponse(BaseModel):
     id: int
     filename: str
     pages: int
     characters: int
+    size : int
     preview: str
     pinned: bool
     uploaded_at: datetime

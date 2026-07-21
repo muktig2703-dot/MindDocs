@@ -1,7 +1,12 @@
 import { HardDrive } from "lucide-react";
-
+import { useDocuments } from "../../../../context/DocumentContext";
 function StorageCard() {
-  const used = 68;
+  const { storage } = useDocuments();
+
+const usedPercentage =
+  storage.total > 0
+    ? (storage.used / storage.total) * 100
+    : 0;
 
   return (
     <div
@@ -48,7 +53,7 @@ function StorageCard() {
         <div
           className="h-full rounded-full transition-all duration-700"
           style={{
-            width: `${used}%`,
+            width: `${usedPercentage}%`,
             background: "var(--primary)",
           }}
         />
@@ -60,23 +65,9 @@ function StorageCard() {
           color: "var(--text-secondary)",
         }}
       >
-        3.4 GB of 5 GB used
+        {(storage.used / (1024 * 1024)).toFixed(2)} MB of{" "}
+{(storage.total / (1024 * 1024 * 1024)).toFixed(0)} GB used
       </p>
-
-      <button
-        className="
-          mt-5
-          text-sm
-          font-medium
-          transition
-          hover:opacity-80
-        "
-        style={{
-          color: "var(--primary)",
-        }}
-      >
-        Upgrade Storage
-      </button>
 
     </div>
   );

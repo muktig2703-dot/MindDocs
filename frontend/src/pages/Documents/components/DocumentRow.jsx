@@ -62,17 +62,8 @@ function DocumentRow({
               color: "var(--text-primary)",
             }}
           >
-            {document.id}
+            {document.filename}
           </h3>
-
-          <p
-            className="text-sm"
-            style={{
-              color: "var(--text-secondary)",
-            }}
-          >
-            Ready for AI Search
-          </p>
 
         </div>
 
@@ -80,24 +71,26 @@ function DocumentRow({
 
       <span>{document.pages}</span>
 
-      <span>{document.formattedSize}</span>
-
       <span>
-        {new Date(
-          document.uploadDate
-        ).toLocaleDateString()}
-      </span>
+  {
+  document.size >= 1024 * 1024
+    ? `${(document.size / 1024 / 1024).toFixed(2)} MB`
+    : `${(document.size / 1024).toFixed(2)} KB`
+}
+</span>
+
+      
+<span>
+  {document.uploaded_at
+    ? new Date(document.uploaded_at).toLocaleDateString("en-IN", {
+        timeZone: "Asia/Kolkata",
+      })
+    : "-"}
+</span>
 
       {/* Actions */}
 
       <div className="flex gap-2">
-
-        <button
-          className="rounded-xl p-2 transition hover:bg-white/10"
-          title="Open"
-        >
-          <FolderOpen size={18} />
-        </button>
 
         <button
   className="rounded-xl p-2 transition hover:bg-yellow-500/20"

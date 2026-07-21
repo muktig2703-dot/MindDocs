@@ -53,3 +53,8 @@ export async function togglePin(id) {
 
   return response.data;
 }
+
+export async function getStorage() {
+  const response = await api.get("/documents/storage");
+  return response.data;
+}

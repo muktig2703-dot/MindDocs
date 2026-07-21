@@ -29,6 +29,7 @@ async def upload_pdf(
             status_code=400,
             detail="Only PDF files are allowed."
         )
+    
 
     file_path = save_pdf(file)
 
@@ -53,6 +54,7 @@ async def upload_pdf(
     filename=file.filename,
     pages=pdf_data["pages"],
     characters=len(pdf_data["text"]),
+    size=file.size,
     preview=pdf_data["text"][:500],
     user_id=user.id,
 )
@@ -176,3 +178,28 @@ def toggle_pin(
     db.refresh(document)
 
     return document
+
+@router.get("/storage")
+def get_storage(
+    payload=Depends(get_current_user_token),
+    db: Session = Depends(get_db),
+):
+    documents = (
+        db.query(Document)
+        .filter(
+            Document.user_id == int(payload["sub"])
+        )
+        .all()
+    )
+
+    total_used = sum(
+        doc.size or 0
+        for doc in documents
+    )
+
+    total_limit = 5 * 1024 * 1024 * 1024  # 5 GB
+
+    return {
+        "used": total_used,
+        "total": total_limit,
+    }

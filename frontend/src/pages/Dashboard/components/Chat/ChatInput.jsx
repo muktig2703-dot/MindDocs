@@ -59,12 +59,6 @@ useEffect(() => {
           borderColor: "var(--border)",
         }}
       >
-        <button disabled>
-          <Paperclip
-            size={20}
-            color="var(--text-secondary)"
-          />
-        </button>
 
         <input
   value={question}
@@ -86,13 +80,6 @@ useEffect(() => {
     color: "var(--text-primary)",
   }}
 />
-
-        <button disabled>
-          <Mic
-            size={20}
-            color="var(--text-secondary)"
-          />
-        </button>
 
         <button
   onClick={handleSend}

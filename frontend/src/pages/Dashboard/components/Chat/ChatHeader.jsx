@@ -61,15 +61,6 @@ function ChatHeader() {
         </div>
 
       </div>
-
-      <button>
-        <MoreHorizontal
-          size={20}
-          style={{
-            color: "var(--text-secondary)",
-          }}
-        />
-      </button>
     </div>
   );
 }

@@ -36,6 +36,11 @@ class Document(Base):
         nullable=False,
     )
 
+    size = Column(
+    Integer,
+    nullable=False,
+    )
+
     preview = Column(
         String,
         nullable=False,

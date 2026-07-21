@@ -66,37 +66,6 @@ function SearchBar({
 
         </div>
 
-        {/* Filter Button */}
-
-        <motion.button
-          whileHover={{
-            scale: 1.03,
-          }}
-          whileTap={{
-            scale: 0.96,
-          }}
-          className="
-            flex
-            h-14
-            w-14
-            items-center
-            justify-center
-            rounded-2xl
-            border
-          "
-          style={{
-            background: "var(--card)",
-            borderColor: "var(--border)",
-          }}
-        >
-          <SlidersHorizontal
-            size={20}
-            style={{
-              color: "var(--text-primary)",
-            }}
-          />
-        </motion.button>
-
       </div>
     </motion.section>
   );

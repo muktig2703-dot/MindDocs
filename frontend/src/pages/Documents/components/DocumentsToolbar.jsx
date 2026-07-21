@@ -53,26 +53,6 @@ function DocumentsToolbar({
 
       </div>
 
-      <button
-        className="
-          flex
-          items-center
-          gap-2
-          rounded-2xl
-          border
-          px-5
-          py-3
-        "
-        style={{
-          background: "var(--card)",
-          borderColor: "var(--border)",
-          color: "var(--text-primary)",
-        }}
-      >
-        <ArrowUpDown size={18} />
-        Sort
-      </button>
-
     </div>
   );
 }
