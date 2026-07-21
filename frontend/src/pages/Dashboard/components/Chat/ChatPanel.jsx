@@ -21,21 +21,19 @@ const messages = currentSession?.messages ?? [];
 
 const [loading, setLoading] = useState(false);
 const {documents} = useDocuments();
-useEffect(() => {
-  if (!currentSessionId) {
-    createSession(
+
+
+const sendMessage = async (question) => {
+  if (!question.trim()) return;
+
+  let sessionId = currentSessionId;
+
+  if (!sessionId) {
+    sessionId = createSession(
       documents[0]?.filename ??
       "Unknown Document"
     );
   }
-}, [
-  currentSessionId,
-  createSession,
-  documents,
-]);
-
-const sendMessage = async (question) => {
-  if (!question.trim()) return;
 
   const userMessage = {
     role: "user",
@@ -43,17 +41,16 @@ const sendMessage = async (question) => {
   };
 
   appendMessage(
-  currentSessionId,
-  userMessage
-);
-
+    sessionId,
+    userMessage
+  );
   setLoading(true);
 
   try {
     const response = await askQuestion(question);
 
     appendMessage(
-  currentSessionId,
+  sessionId,
   {
     role: "assistant",
     text: response.answer,

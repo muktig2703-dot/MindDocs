@@ -11,7 +11,6 @@ from sqlalchemy.orm import relationship
 
 from app.core.database import Base
 
-
 class Document(Base):
     __tablename__ = "documents"
 

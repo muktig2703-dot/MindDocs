@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
+import { Eye, EyeOff } from "lucide-react";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 
@@ -13,9 +13,11 @@ function LoginForm() {
   const [remember, setRemember] = useState(false);
   const navigate = useNavigate();
   const [form, setForm] = useState({
-  email: "",
+  username: "",
   password: "",
 });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -61,23 +63,39 @@ navigate("/dashboard");
   className="space-y-6"
 >
       <Input
-  label="Email"
-  type="email"
-  placeholder="Enter your email"
-  value={form.email}
+  label="Username"
+  type="text"
+  placeholder="Enter your username"
+  value={form.username}
   onChange={(e) =>
-    handleChange("email", e.target.value)
+    handleChange("username", e.target.value)
   }
 />
-      <Input
-  label="Password"
-  type="password"
-  placeholder="••••••••"
-  value={form.password}
-  onChange={(e) =>
-    handleChange("password", e.target.value)
-  }
-/>
+      <div className="relative">
+    <Input
+        label="Password"
+        type={showPassword ? "text" : "password"}
+        placeholder="••••••••"
+        value={form.password}
+        onChange={(e) =>
+            handleChange("password", e.target.value)
+        }
+    />
+
+    <button
+        type="button"
+        onClick={() =>
+            setShowPassword(!showPassword)
+        }
+        className="absolute right-4 top-[44px]"
+    >
+        {showPassword ? (
+            <EyeOff size={18} />
+        ) : (
+            <Eye size={18} />
+        )}
+    </button>
+</div>
 
       <div className="flex items-center justify-between">
 
@@ -92,17 +110,6 @@ navigate("/dashboard");
 
   Remember me
 </label>
-
-        <Link
-          to="#"
-          className="text-sm hover:underline"
-          style={{
-            color: "var(--primary)",
-          }}
-        >
-          Forgot Password?
-        </Link>
-
       </div>
 
       <Button
@@ -139,13 +146,6 @@ navigate("/dashboard");
         />
 
       </div>
-
-      <Button
-        variant="secondary"
-        className="w-full py-3"
-      >
-        Continue with Google
-      </Button>
 
       <p
         className="text-center text-sm"

@@ -88,14 +88,14 @@ def login(
 ):
     user = (
         db.query(User)
-        .filter(User.email == request.email)
+        .filter(User.username == request.username)
         .first()
     )
 
     if not user:
         raise HTTPException(
             status_code=401,
-            detail="Invalid email or password.",
+            detail="Invalid username or password.",
         )
 
     if not verify_password(
@@ -104,7 +104,7 @@ def login(
     ):
         raise HTTPException(
             status_code=401,
-            detail="Invalid email or password.",
+            detail="Invalid username or password.",
         )
 
     token = create_access_token(
