@@ -25,6 +25,11 @@ class Document(Base):
         nullable=False,
     )
 
+    path = Column(
+    String,
+    nullable=False,
+    )
+
     pages = Column(
         Integer,
         nullable=False,

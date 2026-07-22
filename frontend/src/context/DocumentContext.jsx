@@ -19,6 +19,8 @@ const DocumentContext = createContext();
 export function DocumentProvider({ children }) {
   const [documents, setDocuments] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState("");
+  const [selectedDocument, setSelectedDocument] =
+  useState(null);
   const [storage, setStorage] = useState({
   used: 0,
   total: 0,
@@ -86,6 +88,9 @@ export function DocumentProvider({ children }) {
 
         selectedQuestion,
         setSelectedQuestion,
+
+        selectedDocument,
+        setSelectedDocument,
 
         fetchDocuments,
         uploadNewDocument,

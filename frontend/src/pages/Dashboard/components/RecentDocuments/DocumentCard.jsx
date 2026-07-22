@@ -13,8 +13,7 @@ function DocumentCard({
   deleteDocument,
   renameDocument,
 }) {
-  const [expanded, setExpanded] = useState(false);
-  const { togglePin } = useDocuments();
+  const { togglePin, setSelectedDocument } = useDocuments();
   return (
     <motion.div
       whileHover={{
@@ -129,10 +128,10 @@ function DocumentCard({
       >
 
         <button
-  onClick={() => setExpanded(!expanded)}
+  onClick={() => setSelectedDocument(document)}
   className="rounded-xl border px-3 py-2 text-sm"
 >
-  {expanded ? "Close" : "Open"}
+  Open
 </button>
 
         <button
@@ -176,30 +175,7 @@ function DocumentCard({
 </button>
 
       </div>
-      {expanded && (
-  <div
-    className="mt-5 rounded-2xl p-4"
-    style={{
-      background: "rgba(255,255,255,.03)",
-    }}
-  >
-    <p
-      className="
-        whitespace-pre-line
-        leading-7
-        text-sm
-      "
-      style={{
-        color: "var(--text-secondary)",
-      }}
-    >
-      {document.preview}
-    </p>
-  </div>
-)}
-
     </motion.div>
   );
 }
-
 export default DocumentCard;

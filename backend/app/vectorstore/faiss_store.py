@@ -6,7 +6,11 @@ VECTOR_DB = Path("vectorstore")
 
 
 def save_to_faiss(documents, embeddings):
-    if VECTOR_DB.exists():
+    if (
+    VECTOR_DB.exists()
+    and (VECTOR_DB / "index.faiss").exists()
+    and (VECTOR_DB / "index.pkl").exists()
+):
         db = FAISS.load_local(
             str(VECTOR_DB),
             embeddings,
@@ -27,8 +31,13 @@ def save_to_faiss(documents, embeddings):
 
 
 def load_faiss(embeddings):
-    if not VECTOR_DB.exists():
+    if (
+    not VECTOR_DB.exists()
+    or not (VECTOR_DB / "index.faiss").exists()
+    or not (VECTOR_DB / "index.pkl").exists()
+):
         return None
+
 
     return FAISS.load_local(
         str(VECTOR_DB),

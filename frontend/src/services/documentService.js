@@ -58,3 +58,14 @@ export async function getStorage() {
   const response = await api.get("/documents/storage");
   return response.data;
 }
+
+export async function getDocumentPdf(id) {
+  const response = await api.get(
+    `/documents/${id}/view`,
+    {
+      responseType: "blob",
+    }
+  );
+
+  return response.data;
+}

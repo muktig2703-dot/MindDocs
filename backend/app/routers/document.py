@@ -1,4 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
+from fastapi.responses import FileResponse
 from app.schemas.document import UploadResponse, DocumentResponse
 from app.services.pdf_service import save_pdf, extract_text
 from app.services.embedding_service import get_embedding_model
@@ -52,6 +53,7 @@ async def upload_pdf(
     
     document_record = Document(
     filename=file.filename,
+    path=str(file_path),
     pages=pdf_data["pages"],
     characters=len(pdf_data["text"]),
     size=file.size,
@@ -88,6 +90,35 @@ def get_documents(
     )
 
     return documents
+
+@router.get("/{document_id}/view")
+def view_document(
+    document_id: int,
+    payload=Depends(get_current_user_token),
+    db: Session = Depends(get_db),
+):
+    document = (
+        db.query(Document)
+        .filter(
+            Document.id == document_id,
+            Document.user_id == int(payload["sub"]),
+        )
+        .first()
+    )
+
+    if not document:
+        raise HTTPException(
+            status_code=404,
+            detail="Document not found.",
+        )
+
+    return FileResponse(
+    path=document.path,
+    media_type="application/pdf",
+    headers={
+        "Content-Disposition": "inline"
+    },
+)
 
 @router.patch("/{document_id}")
 def rename_document(

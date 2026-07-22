@@ -7,6 +7,7 @@ import UploadCard from "./components/UploadCard/UploadCard";
 import RecentDocuments from "./components/RecentDocuments/RecentDocuments";
 import ChatPanel from "./components/Chat/ChatPanel";
 import { useDocuments } from "../../context/DocumentContext";
+import PDFViewerModal from "./components/RecentDocuments/PDFViewerModal";
 function Dashboard() {
   const {
     documents,
@@ -68,6 +69,7 @@ const filteredDocuments = documents.filter((document) =>
   renameDocument={renameDocument}
   searchTerm={searchTerm}
 />
+<PDFViewerModal/>
     </div>
 
     {/* Right Chat */}
